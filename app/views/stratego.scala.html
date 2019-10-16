@@ -8,10 +8,10 @@
         @for(index <- 1 until size + 1) {
             <th width="20px" height="20px">@{index}</th>
         }
-        @for(row <- 1 until size + 1) {
+        @for(col <- 1 until size + 1) {
             <tr>
-                <th width="20px" height="20px">@{row}</th>
-                @for(col <- 1 until size + 1) {
+                <th width="20px" height="20px">@{col}</th>
+                @for(row <- 1 until size + 1) {
                     <td width="20px" height="20px">
                     @{controller.get(de.htwg.se.stratego.model.boardComponent.Coordinates(row, col)).toString()}
                     </td>
