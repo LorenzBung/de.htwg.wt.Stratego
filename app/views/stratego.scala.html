@@ -1,0 +1,23 @@
+@(controller: de.htwg.se.stratego.controller.GameEngine)
+@size= @{ controller.gb.size }
+
+@main("Stratego in Scala for WebTech") {
+    <h1>Game View</h1>
+    <table border="1px solid black">
+        <th width="20px" height="20px"></th>
+        @for(index <- 1 until size + 1) {
+            <th width="20px" height="20px">@{index}</th>
+        }
+        @for(row <- 1 until size + 1) {
+            <tr>
+                <th width="20px" height="20px">@{row}</th>
+                @for(col <- 1 until size + 1) {
+                    <td width="20px" height="20px">
+                    @{controller.get(de.htwg.se.stratego.model.boardComponent.Coordinates(row, col)).toString()}
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+
+}
