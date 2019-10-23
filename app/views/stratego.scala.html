@@ -2,22 +2,24 @@
 @size= @{ controller.gb.size }
 
 @main("Stratego in Scala for WebTech") {
-    <h1>Game View</h1>
-    <table border="1px solid black">
-        <th width="20px" height="20px"></th>
-        @for(index <- 1 until size + 1) {
-            <th width="20px" height="20px">@{index}</th>
-        }
-        @for(col <- 1 until size + 1) {
-            <tr>
-                <th width="20px" height="20px">@{col}</th>
-                @for(row <- 1 until size + 1) {
-                    <td width="20px" height="20px">
-                    @{controller.get(de.htwg.se.stratego.model.boardComponent.Coordinates(row, col)).toString()}
-                    </td>
+    <div id="wrapper">
+        <div id="gameview-wrapper">
+            <h1>Game View</h1>
+            <table>
+                <th></th>
+                @for(index <- 1 until size + 1) {
+                    <th>@{index}</th>
                 }
-            </tr>
-        }
-    </table>
+                @for(col <- 1 until size + 1) {
+                    <tr>
+                        <th>@{col}</th>
+                        @for(row <- 1 until size + 1) {
+                            <td>@{controller.get(de.htwg.se.stratego.model.boardComponent.Coordinates(row, col)).toString()}</td>
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
 
 }
