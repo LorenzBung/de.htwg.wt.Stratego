@@ -2,23 +2,54 @@
 @size= @{ controller.gb.size }
 
 @main("Stratego in Scala for WebTech") {
-    <div id="wrapper">
+    <nav class="navbar navbar-dark navbar-expand-sm bg-dark">
+        <a class="navbar-brand" href="/">Game</a>
+        <a class="navbar-brand" href="/about">About</a>
+    </nav>
+    <div id="wrapper" class="container">
         <div id="gameview-wrapper">
             <h1>Game View</h1>
-            <table>
-                <th></th>
+            <table class="table-bordered">
+                <th width="30px" height="30px"></th>
                 @for(index <- 1 until size + 1) {
-                    <th>@{index}</th>
+                    <th width="30px" height="30px">@{index}</th>
                 }
                 @for(col <- 1 until size + 1) {
                     <tr>
-                        <th>@{col}</th>
+                        <th width="30px" height="30px">@{col}</th>
                         @for(row <- 1 until size + 1) {
-                            <td>@{controller.get(de.htwg.se.stratego.model.boardComponent.Coordinates(row, col)).toString()}</td>
+                            <td width="30px" height="30px">
+                                <a href="/set/@row/@col">
+                                    <button type="button" class="btn btn-light">
+                                    @{controller.get(de.htwg.se.stratego.model.boardComponent.Coordinates(row, col)).toString()}
+                                </button></a>
+                            </td>
                         }
                     </tr>
                 }
             </table>
+
+            <br>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select figure
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/select/0">Flag</a>
+                    <a class="dropdown-item" href="/select/1">Spy</a>
+                    <a class="dropdown-item" href="/select/2">Scout</a>
+                    <a class="dropdown-item" href="/select/3">Miner</a>
+                    <a class="dropdown-item" href="/select/4">Sergeant</a>
+                    <a class="dropdown-item" href="/select/5">Lieutenant</a>
+                    <a class="dropdown-item" href="/select/6">Captain</a>
+                    <a class="dropdown-item" href="/select/7">Major</a>
+                    <a class="dropdown-item" href="/select/8">Colonel</a>
+                    <a class="dropdown-item" href="/select/9">General</a>
+                    <a class="dropdown-item" href="/select/10">Marshal</a>
+                    <a class="dropdown-item" href="/select/11">Bomb</a>
+                </div>
+                <a class="btn btn-primary" href="/new">New Game</a>
+            </div>
         </div>
     </div>
 
