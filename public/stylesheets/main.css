@@ -17,6 +17,9 @@
   height: 20px;
   border: 1px solid black;
 }
+#gameview-wrapper table {
+  cursor: pointer;
+}
 
 #rule-wrapper, #history-wrapper {
   width: 70%;
