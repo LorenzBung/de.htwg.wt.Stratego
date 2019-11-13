@@ -1,18 +1,40 @@
 window.onload = function() {
-    let callback = function(r, c) {
-        if (document.getElementById("row" + r + "col" + c).innerHTML.trim() === "") {
-            //No figure, proceed to set figure.
-            window.location.href = "/set/" + r + "/" + c;
+    // Callback function to set a figure
+    let set = function(r, c) {
+        if ($("#row" + r + "col" + c).html().trim() === "") {
+            $.get("/set/" + r + "/" + c, function(data) {
+                if (data === "F") {
+                    data = "\uD83C\uDFF4";
+                } else if (data === "B") {
+                    data = "\uD83D\uDCA3";
+                }
+                $("#row" + r + "col" + c).html(data);
+            });
         } else {
-            //Figure is already set, unset it.
-            window.location.href = "/unset/" + r + "/" + c;
+            $.get("/unset/" + r + "/" + c, function(data) {
+                $("#row" + r + "col" + c).html(data);
+            });
         }
     };
+    // Add listeners to each field for set function
     for (row = 1; row <= 10; row++) {
         for (col = 1; col <= 10; col++) {
-            document.getElementById("row" + row + "col" + col).onclick = (function(i, j){
-                return function(){callback(i, j)};
-            }(row, col));
+            $("#row" + row + "col" + col).click((function(i, j){
+                return function(){set(i, j)};
+            }(row, col)));
         }
     }
+    // Add listener for dropdown menu elements to select figure
+    $(".selectbuttons").children().each(function(a, child) {
+        let strength = $(child).attr("select");
+        $(child).click((function(i){
+            return function(){$.get("/select/" + i)};
+        }(strength)));
+    });
+    // Add listener for new game button
+    $("#newGameButton").click(function() {
+        $.get("/new", function(data){
+            $("html").html(data);
+        });
+    });
 };

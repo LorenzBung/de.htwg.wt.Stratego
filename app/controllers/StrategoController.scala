@@ -17,12 +17,12 @@ class StrategoController @Inject()(cc: ControllerComponents) extends AbstractCon
   def set(x: Int, y: Int) = Action {
     val coords = de.htwg.se.stratego.model.boardComponent.Coordinates(x, y)
     eng.set(coords)
-    Ok(views.html.stratego(eng))
+    Ok(eng.get(coords).toString())
   }
   def unset(x: Int, y: Int) = Action {
     val coords = de.htwg.se.stratego.model.boardComponent.Coordinates(x, y)
     eng.unset(coords)
-    Ok(views.html.stratego(eng))
+    Ok(eng.get(coords).toString())
   }
   def select(strength: Int) = Action {
     eng.selectFigure(strength)
