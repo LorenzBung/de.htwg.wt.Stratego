@@ -37,4 +37,7 @@ class StrategoController @Inject()(cc: ControllerComponents) extends AbstractCon
   def about = Action {
     Ok(views.html.about())
   }
+  def getJson = Action {
+    Ok(de.htwg.se.stratego.controller.GameEngine.engine.toJson())
+  }
 }
