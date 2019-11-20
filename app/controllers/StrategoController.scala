@@ -12,7 +12,7 @@ class StrategoController @Inject()(cc: ControllerComponents) extends AbstractCon
   }
   def newGame = Action {
     GameEngine.engine.newGame()
-    Ok(views.html.stratego(eng))
+    Ok(de.htwg.se.stratego.controller.GameEngine.engine.toJson())
   }
   def set(x: Int, y: Int) = Action {
     val coords = de.htwg.se.stratego.model.boardComponent.Coordinates(x, y)

@@ -16,14 +16,40 @@ window.onload = function() {
             });
         }
     };
-    // Add listeners to each field for set function
-    for (row = 1; row <= 10; row++) {
-        for (col = 1; col <= 10; col++) {
-            $("#row" + row + "col" + col).click((function(i, j){
-                return function(){set(i, j)};
-            }(row, col)));
+
+    function loadgrid(grid) {
+        $("#gameboard").html('<table class="table-bordered" id="gameboard-table">');
+        $("#gameboard-table").append('<th width="30px" height="30px"></th>');
+        for (let i = 0; i < 10; i++) {
+            $("#gameboard-table").append('<th width="30px" height="30px">' + (i + 1) + '</th>');
+        }
+        for (let i = 0; i < 10; i++) {
+            $('#gameboard-table').append('<tr id="row' + i + '"><th width="30px" height="30px">' + (i + 1) + '</th></tr>');
+            for (let j = 0; j < 10; j++) {
+                if (((j + 1) === 5 || (j + 1) === 6) && ((i + 1) === 3 || (i + 1) === 4 || (i + 1) === 7 || (i + 1) === 8)) {
+                    $('#row' + i).append('<td id="row' + (i + 1) + 'col' + (j + 1) + '" width="30px" height="30px">X</td>');
+                } else {
+                    let entry = grid["cells"][(10 * i + j)];
+                    if (entry["cell"] !== undefined) {
+                        $('#row' + i).append('<td id="row' + (i + 1) + 'col' + (j + 1) + '" width="30px" height="30px">' + entry["cell"]["strength"] + '</td>');
+                    } else {
+                        $('#row' + i).append('<td id="row' + (i + 1) + 'col' + (j + 1) + '" width="30px" height="30px"></td>');
+                    }
+                    $('#row' + (i + 1) + 'col' + (j + 1)).click((function (i, j) {
+                        return function () {
+                            set(i, j)
+                        };
+                    }(i + 1, j + 1)));
+                }
+            }
         }
     }
+
+    // Load JSON gameboard
+    $.get("/json", function(data) {
+        loadgrid(data);
+    });
+
     // Add listener for dropdown menu elements to select figure
     $(".selectbuttons").children().each(function(a, child) {
         let strength = $(child).attr("select");
@@ -34,7 +60,7 @@ window.onload = function() {
     // Add listener for new game button
     $("#newGameButton").click(function() {
         $.get("/new", function(data){
-            $("html").html(data);
+            loadgrid(data);
         });
     });
 };
