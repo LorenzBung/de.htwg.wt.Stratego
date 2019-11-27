@@ -12,6 +12,7 @@ GET     /json                       controllers.StrategoController.getJson
 GET     /unset/:x/:y                controllers.StrategoController.unset(x: Int, y: Int)
 GET     /move/:x1/:y1/:x2/:y2       controllers.StrategoController.move(x1: Int, y1: Int, x2: Int, y2: Int)
 GET     /about                      controllers.StrategoController.about
+GET     /websocket                  controllers.StrategoController.websocket
 
 # GET     /about                      controllers.SudokuController.about
 

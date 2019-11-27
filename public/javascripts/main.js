@@ -1,18 +1,19 @@
 window.onload = function() {
+    var websocket = undefined;
     // Callback function to set a figure
     let set = function(r, c) {
         if ($("#row" + r + "col" + c).html().trim() === "") {
             $.get("/set/" + r + "/" + c, function(data) {
-                if (data === "F") {
+                /*if (data === "F") {
                     data = "\uD83C\uDFF4";
                 } else if (data === "B") {
                     data = "\uD83D\uDCA3";
                 }
-                $("#row" + r + "col" + c).html(data);
+                $("#row" + r + "col" + c).html(data);*/
             });
         } else {
             $.get("/unset/" + r + "/" + c, function(data) {
-                $("#row" + r + "col" + c).html(data);
+                /*$("#row" + r + "col" + c).html(data);*/
             });
         }
     };
@@ -45,10 +46,38 @@ window.onload = function() {
         }
     }
 
+    function connectWebSocket() {
+        websocket = new WebSocket("ws://localhost:9000/websocket");
+
+        websocket.onopen = function(event) {
+            console.log("Connected to Websocket");
+            return websocket;
+        };
+
+        websocket.onclose = function () {
+            console.log('Connection with Websocket Closed!');
+        };
+
+        websocket.onerror = function (error) {
+            console.log('Error in Websocket Occured: ' + error);
+        };
+
+        websocket.onmessage = function (e) {
+            if (typeof e.data === "string") {
+                let json = JSON.parse(e.data);
+                loadgrid(json);
+            }
+
+        };
+    }
+
     // Load JSON gameboard
     $.get("/json", function(data) {
         loadgrid(data);
     });
+
+    // Connect websocket
+    connectWebSocket();
 
     // Add listener for dropdown menu elements to select figure
     $(".selectbuttons").children().each(function(a, child) {
