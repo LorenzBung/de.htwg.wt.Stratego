@@ -56,6 +56,7 @@ window.onload = function() {
 
         websocket.onclose = function () {
             console.log('Connection with Websocket Closed!');
+            connectWebSocket();
         };
 
         websocket.onerror = function (error) {
