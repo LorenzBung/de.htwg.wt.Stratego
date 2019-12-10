@@ -1,0 +1,20 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Controller for Sudoku
+
+GET     /                           controllers.StrategoController.stratego
+GET     /new                        controllers.StrategoController.newGame
+GET     /select/:strength           controllers.StrategoController.select(strength: Int)
+GET     /set/:x/:y                  controllers.StrategoController.set(x: Int, y: Int)
+GET     /json                       controllers.StrategoController.getJson
+GET     /unset/:x/:y                controllers.StrategoController.unset(x: Int, y: Int)
+GET     /move/:x1/:y1/:x2/:y2       controllers.StrategoController.move(x1: Int, y1: Int, x2: Int, y2: Int)
+GET     /about                      controllers.StrategoController.about
+GET     /websocket                  controllers.StrategoController.websocket
+
+# GET     /about                      controllers.SudokuController.about
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

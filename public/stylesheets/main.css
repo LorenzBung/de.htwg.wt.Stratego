@@ -1,0 +1,35 @@
+* {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+#gameview-wrapper {
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
+}
+#gameview-wrapper table {
+  margin: 0 auto;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+#gameview-wrapper table th, #gameview-wrapper table td {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+}
+#gameview-wrapper table {
+  cursor: pointer;
+}
+
+#rule-wrapper, #history-wrapper {
+  width: 70%;
+  margin: 0 auto;
+}
+#rule-wrapper h1, #history-wrapper h1 {
+  text-align: center;
+}
+
+blockquote {
+  background-color: lightgray;
+  padding: .5em;
+}
