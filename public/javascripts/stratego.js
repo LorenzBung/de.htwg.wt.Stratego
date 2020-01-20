@@ -43,7 +43,8 @@ $(document).ready(function () {
 
 
     function connectWebSocket() {
-        websocket = new WebSocket("ws://localhost:9000/websocket");
+        let wsurl = "ws://" + document.location.hostname + ":" + document.location.port + "/websocket";
+        websocket = new WebSocket(wsurl);
 
         websocket.onopen = function(event) {
             console.log("Connected to Websocket");
@@ -62,7 +63,6 @@ $(document).ready(function () {
         websocket.onmessage = function (e) {
             if (typeof e.data === "string") {
                 let json = JSON.parse(e.data);
-                console.log(json);
                 loadgrid(json);
             }
 
