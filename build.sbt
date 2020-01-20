@@ -28,13 +28,15 @@ libraryDependencies ++= Seq(
   "com.enragedginger" %% "akka-quartz-scheduler" % "1.6.1-akka-2.5.x",
   "com.adrianhurt" %% "play-bootstrap" % "1.5.1-P27-B4",
   "com.mohiva" %% "play-silhouette-testkit" % "6.1.0" % "test",
+  "org.scala-lang.modules" % "scala-swing_2.12" % "2.0.3",
   specs2 % Test,
   ehcache,
   guice,
   filters
 )
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+lazy val root = (project in file(".")).enablePlugins(PlayScala).aggregate(strategoLib).dependsOn(strategoLib)
+lazy val strategoLib = project
 
 routesImport += "utils.route.Binders._"
 

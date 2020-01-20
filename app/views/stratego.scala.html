@@ -1,0 +1,36 @@
+@import play.api.i18n.Messages
+@import play.api.mvc.RequestHeader
+@import org.webjars.play.WebJarsUtil
+@import controllers.AssetsFinder
+@import play.api.data._
+@import forms.TotpSetupForm.Data
+@import com.mohiva.play.silhouette.impl.providers.GoogleTotpCredentials
+@import com.mohiva.play.silhouette.impl.providers.GoogleTotpInfo
+
+
+@this()(implicit webJarsUtil: WebJarsUtil, assets: AssetsFinder)
+@(user: models.User, totpInfoOpt: Option[GoogleTotpInfo], totpDataOpt: Option[(Form[Data], GoogleTotpCredentials)] = None)(implicit request: RequestHeader, messages: Messages)
+
+@implicitFieldConstructor = @{
+    b4.vertical.fieldConstructor()
+}
+
+@main(messages("home.title"), Some(user)) {
+    <div id="wrapper" class="container">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js" type="text/javascript"></script>
+        <script src="@assets.path("javascripts/strategoVue.js")" type="text/javascript"></script>
+        <script src="@assets.path("javascripts/stratego.js")" type="text/javascript"></script>
+        <div id="gameview-wrapper">
+            <h1>Game View</h1>
+            <div id="stratego-game-wrapper">
+                <stratego-game></stratego-game>
+            </div><br>
+
+            <div id="stratego-selector-wrapper">
+                <stratego-selector></stratego-selector>
+            </div>
+        </div>
+    </div>
+}

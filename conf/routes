@@ -4,7 +4,15 @@
 
 # Home page
 GET         /                                controllers.ApplicationController.index
+GET         /stratego                        controllers.ApplicationController.stratego
+GET         /new                             controllers.ApplicationController.newGame
+GET         /select/:strength                controllers.ApplicationController.select(strength: Int)
+GET         /set/:x/:y                       controllers.ApplicationController.set(x: Int, y: Int)
+GET         /unset/:x/:y                     controllers.ApplicationController.unset(x: Int, y: Int)
+GET         /move/:x1/:y1/:x2/:y2            controllers.ApplicationController.move(x1: Int, y1: Int, x2: Int, y2: Int)
 GET         /about                           controllers.ApplicationController.about
+GET         /websocket                       controllers.ApplicationController.websocket
+GET         /json                            controllers.ApplicationController.json
 GET         /signOut                         controllers.ApplicationController.signOut
 GET         /authenticate/:provider          controllers.SocialAuthController.authenticate(provider)
 
