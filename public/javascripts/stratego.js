@@ -43,7 +43,7 @@ $(document).ready(function () {
 
 
     function connectWebSocket() {
-        let wsurl = location.origin.replace(/^http/, 'ws') + "/websocket";
+        let wsurl = "wss://" + document.location.host + "/websocket";
         websocket = new WebSocket(wsurl);
 
         websocket.onopen = function(event) {
