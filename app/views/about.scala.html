@@ -1,0 +1,74 @@
+@import play.api.i18n.Messages
+@import play.api.mvc.RequestHeader
+@import org.webjars.play.WebJarsUtil
+@import controllers.AssetsFinder
+@import play.api.data._
+@import forms.TotpSetupForm.Data
+@import com.mohiva.play.silhouette.impl.providers.GoogleTotpCredentials
+@import com.mohiva.play.silhouette.impl.providers.GoogleTotpInfo
+
+
+@this()(implicit webJarsUtil: WebJarsUtil, assets: AssetsFinder)
+@(user: models.User, totpInfoOpt: Option[GoogleTotpInfo], totpDataOpt: Option[(Form[Data], GoogleTotpCredentials)] = None)(implicit request: RequestHeader, messages: Messages)
+
+@implicitFieldConstructor = @{
+    b4.vertical.fieldConstructor()
+}
+
+@main(messages("home.title"), Some(user)) {
+    <div class="container">
+        <div id="rule-wrapper">
+            <h1>Rules</h1>
+            <div id="rules">
+                <ul>
+                    <li>The game consists of a Board with a layout of 10x10.</li>
+                    <li>The fields 3, 4, 7 and 8 in lines 5 and 6 are blocked, so no figure can stand on them.</li>
+                    <li>Every player has a certain amount of figures with different strengths. Every player has:
+                        <ul>
+                            <li>1 Flag: The goal of the game is to capture the enemy flag. The flag is immovable.</li>
+                            <li>6 Bombs: The bombs kill every figure, except the Miners (strength 3). They are immovable.</li>
+                            <li>1 Marshal (strength 10)</li>
+                            <li>1 General (strength 9)</li>
+                            <li>2 Colonels (strength 8)</li>
+                            <li>3 Majors (strength 7)</li>
+                            <li>4 Captains (strength 6)</li>
+                            <li>4 Lieutenants (strength 5)</li>
+                            <li>5 Sergeants (strength 4)</li>
+                            <li>5 Miners (strength 3)</li>
+                            <li>6 Scouts (strength 2)</li>
+                            <li>1 Spy (strength 1)</li>
+                        </ul>
+                    </li>
+                    <li>In the beginning, the players place their figures in their own half (lines 1-4 / 7-10).</li>
+                    <li>Every figure (with exception to the Flag and Bombs) can be moved.
+                        The Scout (strength 2) can move in one direction as far as he likes, every other figure can only move one field.
+                        Diagonal movement and "jumping" figures is not possible.
+                    </li>
+                    <li>
+                        When moving onto the field of an enemy figure, the figure is attacked.
+                        Beating logic is simple: When a figure attacks a stronger figure, it dies.
+                        If the attacked figure is weaker or of the same strength, the attacker wins.
+                        The Flag can be defeated by every figure, Bombs always win (with exception to Miners).
+                        The Miners can also disarm a Bomb when attacking.
+                        The Spy (strength 1) can defeat the Marshal (strength 10) when attacking him.
+                        However, when the Marshal attacks the Spy, he wins.
+                    </li>
+                    <li>The game ends when one of the flags is captured by an enemy figure.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="history-wrapper">
+            <h1>History</h1>
+            <div id="history">
+                <p>In nearly its present form <em>Stratego</em> appeared in France from La Samaritaine in 1910, and then in Britain before World War I, as a game called <em>L'attaque</em>. Historian and game collector Thierry Depaulis writes:
+                    <blockquote class="blockquote">
+                        <p class="mb-0">It was in fact designed by a lady, Mademoiselle Hermance Edan, who filed a patent for a <em>"jeu de bataille avec pièces mobiles sur damier"</em> (a battle game with mobile pieces on a gameboard) on 1908-11-26. The patent was released by the French Patent Office in 1909 (patent #396.795). Hermance Edan had given no name to her game but a French manufacturer named Au Jeu Retrouvé was selling the game as <em>L'Attaque</em> as early as 1910.
+                        </p>
+                        <footer class="blockquote-footer">(Quote from Wikipedia)</footer>
+                    </blockquote>
+                </p>
+            </div>
+        </div>
+    </div>
+}
